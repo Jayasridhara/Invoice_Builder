@@ -14,7 +14,7 @@ const InvoiceForm = ({ client, setClient }) => {
           value={client.name}
           onChange={handleChange}
           placeholder="Client Name"
-          className="border p-2  rounded print:print-flat"
+          className="border p-2  rounded print:print-flat focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         />
         <input
           type="text"
@@ -22,7 +22,7 @@ const InvoiceForm = ({ client, setClient }) => {
           value={client.invoiceNumber}
           onChange={handleChange}
           placeholder="Invoice Number"
-          className="border p-2  rounded print:print-flat"
+          className="border p-2  rounded print:print-flat focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         />
         <input
           type="text"
@@ -30,14 +30,14 @@ const InvoiceForm = ({ client, setClient }) => {
           value={client.address}
           onChange={handleChange}
           placeholder="Client Address"
-          className="border p-2 rounded print:print-flat"
+          className="border p-2 rounded print:print-flat focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         />
         <input
           type="date"
           name="date"
           value={client.date}
           onChange={handleChange}
-          className="border p-2 rounded"
+          className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         />
       </div>
     </div>
