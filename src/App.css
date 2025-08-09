@@ -1,0 +1,11 @@
+@media print {
+  .print-flat {
+    border: none !important;
+    background-color: transparent !important;
+    -webkit-appearance: none; /* Removes default browser styling */
+    -moz-appearance: none;
+    appearance: none;
+    padding: 0; /* Optional: remove padding for a tighter look */
+    border-radius: 0; /* Optional: remove border-radius */
+  }
+}

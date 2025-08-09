@@ -5,7 +5,7 @@ const InvoiceForm = ({ client, setClient }) => {
   };
 
   return (
-    <div className="mb-6">
+    <div className="">
       <h2 className="text-xl font-bold mb-4">Client Information</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 whitespace-nowrap">
         <input
@@ -14,7 +14,7 @@ const InvoiceForm = ({ client, setClient }) => {
           value={client.name}
           onChange={handleChange}
           placeholder="Client Name"
-          className="border p-2  rounded"
+          className="border p-2  rounded print:print-flat"
         />
         <input
           type="text"
@@ -22,7 +22,7 @@ const InvoiceForm = ({ client, setClient }) => {
           value={client.invoiceNumber}
           onChange={handleChange}
           placeholder="Invoice Number"
-          className="border p-2 rounded"
+          className="border p-2  rounded print:print-flat"
         />
         <input
           type="text"
@@ -30,7 +30,7 @@ const InvoiceForm = ({ client, setClient }) => {
           value={client.address}
           onChange={handleChange}
           placeholder="Client Address"
-          className="border p-2 rounded"
+          className="border p-2 rounded print:print-flat"
         />
         <input
           type="date"

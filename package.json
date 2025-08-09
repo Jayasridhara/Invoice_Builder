@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.11",
-    "html2canvas": "^1.4.1",
+    "html2canvas": "^1.0.0-rc.7",
     "html2canvas-pro": "^1.5.11",
     "html2pdf.js": "^0.10.3",
     "jspdf": "^3.0.1",

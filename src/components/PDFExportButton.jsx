@@ -10,12 +10,12 @@ const PDFExportButton = ({ invoiceRef }) => {
         onClick={() => generatePDF(invoiceRef)}
         style={{
              padding: "0.5rem 1rem",
-    backgroundColor: '#16a34a', // Tailwind's green-600
+    backgroundColor: '#16a34a', 
     color: '#ffffff',
     borderRadius: '0.25rem',
     cursor: 'pointer',
   }}
-  onMouseOver={(e) => (e.target.style.backgroundColor = '#15803d')} // green-700
+  onMouseOver={(e) => (e.target.style.backgroundColor = '#15803d')} 
   onMouseOut={(e) => (e.target.style.backgroundColor = '#16a34a')}
       >
         Download as PDF

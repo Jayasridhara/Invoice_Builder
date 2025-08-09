@@ -6,7 +6,7 @@ import InvoiceForm from "./components/InvoiceForm";
 import LineItemsTable from "./components/LineItemsTable";
 import InvoiceSummary from "./components/InvoiceSummary";
 import PDFExportButton from "./components/PDFExportButton";
-
+import './App.css';
 function App() {
   const [client, setClient] = useState({
     name: "",
