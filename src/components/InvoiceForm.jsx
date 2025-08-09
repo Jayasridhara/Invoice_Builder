@@ -1,3 +1,6 @@
+import { useState } from "react";
+import ConfirmModal from "./ConfirmModal";
+
 const defaultClient = {
   name: '',
   invoiceNumber: '',
@@ -14,6 +17,17 @@ const InvoiceForm = ({ client, setClient }) => {
     setClient(defaultClient);
   };
 
+  const invoiceRegex = /^INV-\d{5,}$/;
+  const [error, setError] = useState('');
+  const handleBlur = (e) => {
+  const value = e.target.value;
+  if (!invoiceRegex.test(value)) {
+    setError('Invoice number must start with "INV-" followed by at least 5 digits.');
+  } else {
+    setError('');
+  
+  }
+};
   return (
     <div className="">
       <h2 className="text-xl font-bold mb-4">Client Information</h2>
@@ -26,14 +40,24 @@ const InvoiceForm = ({ client, setClient }) => {
           placeholder="Client Name"
           className="border p-2  rounded print:print-flat focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         />
-        <input
-          type="text"
-          name="invoiceNumber"
-          value={client.invoiceNumber}
-          onChange={handleChange}
-          placeholder="Invoice Number"
-          className="border p-2  rounded print:print-flat focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-        />
+       <input
+        type="text"
+        name="invoiceNumber"
+        value={client.invoiceNumber}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        placeholder="INV-000001"
+        maxLength={10}
+        className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+      />
+      <ConfirmModal
+        isOpen={!!error}
+        title="Validation Error"
+        message={<div className="w-full max-w-sm [white-space:pre-wrap] [overflow-wrap:break-word]">{error}</div>}
+        onConfirm={() => setError('')}
+        confirmText="OK"
+        cancelText=""
+      />
         <input
           type="text"
           name="address"
@@ -54,7 +78,7 @@ const InvoiceForm = ({ client, setClient }) => {
         type="button"
         data-html2canvas-ignore="true"
         onClick={handleReset}
-        className="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+        className="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 cursor-pointer"
       >
         Reset
       </button>

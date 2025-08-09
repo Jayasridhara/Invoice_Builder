@@ -84,7 +84,7 @@ const LineItemsTable = ({ items, setItems }) => {
             <button
               
               onClick={() => confirmDelete(i)}
-              className="mt-4 sm:mt-0 text-red-500 hover:text-red-700 flex items-center justify-center"
+              className="mt-4 sm:mt-0 text-red-500 hover:text-red-700 flex items-center justify-center cursor-pointer"
             >
               <FontAwesomeIcon icon={faTrashAlt} />
             </button>
@@ -93,18 +93,19 @@ const LineItemsTable = ({ items, setItems }) => {
       </div>
 
       {/* Add Item Button */}
-      <div className='flex align-center justify-center gap-10'>
+      <div className='flex align-center justify-center gap-10 cursor-pointer'>
         <button
         data-html2canvas-ignore="true"
         onClick={addItem}
-        className="mt-4 px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600"
+        className="mt-4 px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600 cursor-pointer"
       >
         + Add Item
       </button>
-        <button
+      <button
         data-html2canvas-ignore="true"
+        disabled={items.length === 0}
         onClick={handleClearAll}
-        className="mt-4 px-4 py-2 rounded bg-red-500 text-white hover:bg-red-600"
+        className="mt-4 px-4 py-2 rounded bg-red-500 text-white hover:bg-red-600 cursor-pointer"
       >
         Clear All Items
       </button>
