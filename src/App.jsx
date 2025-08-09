@@ -32,7 +32,7 @@ function App() {
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
-       <h1 className="text-3xl font-bold text-center mb-6 text-blue-600 drop-shadow-md">
+       <h1 className="text-3xl font-bold text-center  text-blue-600 drop-shadow-md">
       Invoice Builder
     </h1>
       <div ref={invoiceRef} className=" p-6 shadow-md"  style={{ backgroundColor: '#ffffff', color: '#000000' }}>

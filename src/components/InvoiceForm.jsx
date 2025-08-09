@@ -1,7 +1,17 @@
+const defaultClient = {
+  name: '',
+  invoiceNumber: '',
+  address: '',
+  date: '',
+};
 const InvoiceForm = ({ client, setClient }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setClient({ ...client, [name]: value });
+  };
+
+  const handleReset = () => {
+    setClient(defaultClient);
   };
 
   return (
@@ -40,6 +50,14 @@ const InvoiceForm = ({ client, setClient }) => {
           className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         />
       </div>
+       <button
+        type="button"
+        data-html2canvas-ignore="true"
+        onClick={handleReset}
+        className="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+      >
+        Reset
+      </button>
     </div>
   );
 };

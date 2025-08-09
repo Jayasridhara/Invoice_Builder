@@ -1,9 +1,17 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
+import ConfirmModal from './ConfirmModal';
 const LineItemsTable = ({ items, setItems }) => {
   const [showConfirm, setShowConfirm] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
+  const [showClearConfirm, setShowClearConfirm] = useState(false);
+  const handleClearAll = () => setShowClearConfirm(true);
+
+  const confirmClearAll = () => {
+    setItems([]);
+    setShowClearConfirm(false);
+  };
 
   const handleItemChange = (index, field, value) => {
     const updatedItems = [...items];
@@ -74,7 +82,7 @@ const LineItemsTable = ({ items, setItems }) => {
               ₹{(item.quantity * item.unitPrice).toFixed(2)}
             </div>
             <button
-              data-html2canvas-ignore="true"
+              
               onClick={() => confirmDelete(i)}
               className="mt-4 sm:mt-0 text-red-500 hover:text-red-700 flex items-center justify-center"
             >
@@ -85,37 +93,44 @@ const LineItemsTable = ({ items, setItems }) => {
       </div>
 
       {/* Add Item Button */}
-      <button
+      <div className='flex align-center justify-center gap-10'>
+        <button
         data-html2canvas-ignore="true"
         onClick={addItem}
         className="mt-4 px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600"
       >
         + Add Item
       </button>
+        <button
+        data-html2canvas-ignore="true"
+        onClick={handleClearAll}
+        className="mt-4 px-4 py-2 rounded bg-red-500 text-white hover:bg-red-600"
+      >
+        Clear All Items
+      </button>
+      </div>
+          <ConfirmModal
+        isOpen={showConfirm}
+        title="Delete Item"
+        message="Are you sure you want to delete this item?"
+        onConfirm={removeItem}
+        onCancel={() => setShowConfirm(false)}
+        confirmText="Yes, Delete"
+        cancelText="Cancel"
+      />
 
-      {/* Delete Confirmation Popup */}
-      {showConfirm && (
-        <div className="fixed inset-0 z-50 flex items-start justify-center bg-black-10 p-4">
-          <div className="bg-blue-300 p-6 rounded-lg shadow-lg text-center max-w-sm w-full">
-            <h3 className="text-lg font-semibold mb-4">Are you sure you want to delete this item?</h3>
-            <div className="flex justify-center gap-4">
-              <button
-                onClick={removeItem}
-                className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-              >
-                Yes, Delete
-              </button>
-              <button
-                onClick={() => setShowConfirm(false)}
-                className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400"
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <ConfirmModal
+        isOpen={showClearConfirm}
+        title="Delete all items?"
+        message="Are you sure you want to clear all items?"
+        onConfirm={confirmClearAll}
+        onCancel={() => setShowClearConfirm(false)}
+        confirmText="Yes, Clear All"
+        cancelText="Cancel"
+      />
+
     </div>
+    
   );
 };
 

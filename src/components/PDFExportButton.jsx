@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import generatePDF from "../utils/generatePDF";
+import ConfirmModal from "./ConfirmModal";
 
 
 const PDFExportButton = ({ invoiceRef }) => {
@@ -16,11 +17,11 @@ const PDFExportButton = ({ invoiceRef }) => {
     if (!client?.address) missing.push("Client Address");
     if (!client?.invoiceNumber) missing.push("Invoice Number");
     if (!client?.date) missing.push("Invoice Date");
-
+    
     if (!items || items.length === 0) {
       missing.push("At least one item in the table");
     }
-
+    
     if (missing.length > 0) {
       setMissingFields(missing);
       setShowPopup(true);
@@ -47,26 +48,18 @@ const PDFExportButton = ({ invoiceRef }) => {
         Download as PDF
       </button>
 
-      {showPopup && (
-        <div className="fixed inset-0 z-50 flex items-start justify-center bg-black-10 p-4">
-          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full text-center">
-            <h2 className="text-lg font-semibold mb-4 text-red-600">
-              Please complete the following before downloading:
-            </h2>
-            <ul className="text-left mb-4 list-disc list-inside text-gray-700">
-              {missingFields.map((field, index) => (
-                <li key={index}>{field}</li>
-              ))}
-            </ul>
-            <button
-              onClick={() => setShowPopup(false)}
-              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
+       <ConfirmModal
+        isOpen={showPopup}
+        title="Please complete the following before downloading:"
+        message={<ul className="text-left list-disc list-inside w-full">
+      {missingFields.map((f, index) => (
+        <li key={index}>{f}</li>
+      ))}
+    </ul>}
+        onConfirm={() => setShowPopup(false)}
+        confirmText="Close"
+        cancelText=""
+      />
     </div>
   );
 };

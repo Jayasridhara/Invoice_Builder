@@ -40,6 +40,7 @@ const generatePDF = async (ref) => {
     width: clone.offsetWidth,
     height: clone.scrollHeight,
     letterRendering: true,
+    
   });
 
   // Clean up
