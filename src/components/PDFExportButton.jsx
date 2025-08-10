@@ -32,7 +32,7 @@ const PDFExportButton = ({ invoiceRef }) => {
   };
 
   return (
-    <div className="mt-6 text-right relative">
+    <div className="mt-4 text-right relative">
       <button
         onClick={handleDownload}
         style={{
