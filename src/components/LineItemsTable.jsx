@@ -56,7 +56,8 @@ const LineItemsTable = ({ items, setItems }) => {
         {items.map((item, i) => (
           <div key={i} className="flex flex-col sm:grid sm:grid-cols-6 gap-4 border p-4 rounded-lg items-center">
             {/* Description Input - REMOVED flex classes */}
-             <div className="sm:col-span-2 flex justify-center">
+             <div className="sm:col-span-2 flex flex-col justify-center">
+              <label className="text-sm font-medium mb-1 sm:hidden">Description</label>
             <input
               type="text"
               maxLength={30}

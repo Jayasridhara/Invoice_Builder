@@ -9,3 +9,4 @@ const InvoiceSummary = ({ subtotal, tax, total }) => {
 };
 
 export default InvoiceSummary;
+  
