@@ -13,6 +13,7 @@ function App() {
   invoiceNumber: '',
   date: ''
 });
+const [invoiceError, setInvoiceError] = useState('');
 
   const [items, setItems] = useStateWithLocalStorage('invoice-items', []);
   const [taxRate, setTaxRate] =useStateWithLocalStorage('invoice-taxRate', 0.1); // 10%
@@ -36,11 +37,11 @@ function App() {
       Invoice Builder
     </h1>
       <div ref={invoiceRef} className=" p-6 shadow-md"  style={{ backgroundColor: '#ffffff', color: '#000000' }}>
-        <InvoiceForm client={client} setClient={setClient} />
-        <LineItemsTable items={items} setItems={setItems} />
+        <InvoiceForm client={client} setClient={setClient} setInvoiceError={setInvoiceError} />
+        <LineItemsTable items={items} setItems={setItems}  />
         <InvoiceSummary subtotal={subtotal} tax={tax} total={total} />
       </div>
-      <PDFExportButton invoiceRef={invoiceRef} />
+      <PDFExportButton invoiceRef={invoiceRef} invoiceError={invoiceError} />
     </div>
   );
 }

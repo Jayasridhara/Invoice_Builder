@@ -6,6 +6,7 @@ const LineItemsTable = ({ items, setItems }) => {
   const [showConfirm, setShowConfirm] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
   const [showClearConfirm, setShowClearConfirm] = useState(false);
+
   const handleClearAll = () => setShowClearConfirm(true);
 
   const confirmClearAll = () => {
@@ -27,64 +28,75 @@ const LineItemsTable = ({ items, setItems }) => {
     setItemToDelete(index);
     setShowConfirm(true);
   };
- const removeItem = () => {
-    const updatedItems = [...items];
-    updatedItems.splice(itemToDelete, 1);
-    setItems(updatedItems);
-    setShowConfirm(false);
-    setItemToDelete(null);
+
+  const removeItem = () => {
+    if (itemToDelete !== null) {
+      const updatedItems = [...items];
+      updatedItems.splice(itemToDelete, 1);
+      setItems(updatedItems);
+      setShowConfirm(false);
+      setItemToDelete(null);
+    }
   };
 
   return (
-  <div className="my-6 relative">
+   <div className="my-6 relative">
       <h2 className="text-xl font-bold mb-4">Item Table</h2>
 
       {/* Table Header */}
-      <div className="hidden sm:grid grid-cols-5 gap-4 divide-x divide-gray-300 rounded-t-lg shadow-glow pb-2 mb-2">
-        <div className="flex items-center justify-center px-2 py-1 bg-gray-100">Description</div>
+      <div className="hidden sm:grid grid-cols-6 gap-4 divide-x divide-gray-300 rounded-t-lg shadow-glow pb-2 mb-2">
+        <div className="flex items-center justify-center px-2 py-1 bg-gray-100 sm:col-span-2">Description</div>
         <div className="flex items-center justify-center px-2 py-1 bg-gray-50">Quantity</div>
         <div className="flex items-center justify-center px-2 py-1 bg-gray-100">Unit Price</div>
         <div className="flex items-center justify-center px-2 py-1 bg-gray-50">Amount</div>
-        <div className="flex items-center justify-center px-2 py-1 bg-gray-100">Delete</div>
+        <div  className="flex items-center justify-center px-2 py-1 bg-gray-100">Delete</div>
       </div>
 
       <div className="space-y-4">
         {items.map((item, i) => (
-          <div key={i} className="flex flex-col sm:grid sm:grid-cols-5 gap-4 border p-4 rounded-lg">
+          <div key={i} className="flex flex-col sm:grid sm:grid-cols-6 gap-4 border p-4 rounded-lg items-center">
+            {/* Description Input - REMOVED flex classes */}
+             <div className="sm:col-span-2 flex justify-center">
             <input
               type="text"
+              maxLength={30}
               value={item.description}
               onChange={e => handleItemChange(i, "description", e.target.value)}
               placeholder="Description"
-              className="border p-2 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className=" border p-2 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 "
             />
-            <div className="flex flex-col">
+            </div>
+
+            <div className="flex flex-col md:flex-row justify-center">
               <label className="text-sm font-medium mb-1 sm:hidden">Quantity</label>
+              {/* Quantity Input - REMOVED flex classes */}
               <input
                 type="number"
                 value={item.quantity}
                 onChange={e => handleItemChange(i, "quantity", e.target.value)}
                 placeholder="Qty"
-                className="border p-2 rounded text-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="border p-2 rounded w-full text-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col md:flex-row justify-center">
               <label className="text-sm font-medium mb-1 sm:hidden">Unit Price</label>
+              {/* Unit Price Input - REMOVED flex classes */}
               <input
                 type="number"
                 value={item.unitPrice}
                 onChange={e => handleItemChange(i, "unitPrice", e.target.value)}
                 placeholder="Unit Price"
-                className="border p-2 rounded text-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className=" border p-2 rounded w-full text-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
-            <div className="mt-4 sm:mt-0 font-semibold flex items-center justify-center">
+            {/* This div correctly uses flex to center the text amount */}
+            <div className="font-semibold flex items-center justify-center">
               ₹{(item.quantity * item.unitPrice).toFixed(2)}
             </div>
             <button
               
               onClick={() => confirmDelete(i)}
-              className="mt-4 sm:mt-0 text-red-500 hover:text-red-700 flex items-center justify-center cursor-pointer"
+              className="text-red-500 hover:text-red-700 flex items-center justify-center cursor-pointer"
             >
               <FontAwesomeIcon icon={faTrashAlt} />
             </button>
@@ -92,25 +104,27 @@ const LineItemsTable = ({ items, setItems }) => {
         ))}
       </div>
 
-      {/* Add Item Button */}
+      {/* Action Buttons */}
       <div className='flex align-center justify-center gap-10 cursor-pointer'>
         <button
-        data-html2canvas-ignore="true"
-        onClick={addItem}
-        className="mt-4 px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600 cursor-pointer"
-      >
-        + Add Item
-      </button>
-      <button
-        data-html2canvas-ignore="true"
-        disabled={items.length === 0}
-        onClick={handleClearAll}
-        className="mt-4 px-4 py-2 rounded bg-red-500 text-white hover:bg-red-600 cursor-pointer"
-      >
-        Clear All Items
-      </button>
+          data-html2canvas-ignore="true"
+          onClick={addItem}
+          className="mt-4 px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600 cursor-pointer"
+        >
+          + Add Item
+        </button>
+        <button
+          data-html2canvas-ignore="true"
+          disabled={items.length === 0}
+          onClick={handleClearAll}
+          className="mt-4 px-4 py-2 rounded bg-red-500 text-white hover:bg-red-600 cursor-pointer"
+        >
+          Clear All Items
+        </button>
       </div>
-          <ConfirmModal
+      
+      {/* Confirmation Modals */}
+      <ConfirmModal
         isOpen={showConfirm}
         title="Delete Item"
         message="Are you sure you want to delete this item?"
@@ -119,7 +133,6 @@ const LineItemsTable = ({ items, setItems }) => {
         confirmText="Yes, Delete"
         cancelText="Cancel"
       />
-
       <ConfirmModal
         isOpen={showClearConfirm}
         title="Delete all items?"
@@ -129,9 +142,7 @@ const LineItemsTable = ({ items, setItems }) => {
         confirmText="Yes, Clear All"
         cancelText="Cancel"
       />
-
     </div>
-    
   );
 };
 

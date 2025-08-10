@@ -3,7 +3,7 @@ import generatePDF from "../utils/generatePDF";
 import ConfirmModal from "./ConfirmModal";
 
 
-const PDFExportButton = ({ invoiceRef }) => {
+const PDFExportButton = ({ invoiceRef , invoiceError }) => {
     
  const [showPopup, setShowPopup] = useState(false);
   const [missingFields, setMissingFields] = useState([]);
@@ -13,6 +13,9 @@ const PDFExportButton = ({ invoiceRef }) => {
     const items = JSON.parse(localStorage.getItem("invoice-items"));
 
     const missing = [];
+    if (invoiceError) {
+      missing.push("Invoice Number Format is Invalid and Number must start with 'INV-' followed by at least 5 digits.");
+    }
     if (!client?.name) missing.push("Client Name");
     if (!client?.address) missing.push("Client Address");
     if (!client?.invoiceNumber) missing.push("Invoice Number");

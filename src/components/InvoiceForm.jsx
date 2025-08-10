@@ -7,7 +7,8 @@ const defaultClient = {
   address: '',
   date: '',
 };
-const InvoiceForm = ({ client, setClient }) => {
+const InvoiceForm = ({ client, setClient,setInvoiceError }) => {
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setClient({ ...client, [name]: value });
@@ -21,60 +22,90 @@ const InvoiceForm = ({ client, setClient }) => {
   const [error, setError] = useState('');
   const handleBlur = (e) => {
   const value = e.target.value;
-  if (!invoiceRegex.test(value)) {
-    setError('Invoice number must start with "INV-" followed by at least 5 digits.');
+  if (!invoiceRegex.test(value)) {  
+    const err = 'Invoice number must start with "INV-" followed by at least 5 digits.';
+    setError(err);
+    setInvoiceError(err);
   } else {
     setError('');
-  
+  setInvoiceError('');
   }
 };
   return (
-    <div >
-      <h2 className="text-xl font-bold mb-4">Client Information</h2>
+    <div>
+      <h2 className="text-xl font-bold mb-2">Client Information</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 whitespace-nowrap">
-        <input
-          type="text"
-          name="name"
-          value={client.name}
-          onChange={handleChange}
-          placeholder="Client Name"
-          className="border p-2  rounded print:print-flat focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+        
+        <div className="flex flex-col">
+          <label htmlFor="name" className="font-medium mb-1">Client Name</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            value={client.name}
+            onChange={handleChange}
+            maxLength={30}
+            placeholder="Client Name"
+            className="border p-2 rounded print:print-flat focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+
+        <div className="flex flex-col">
+          <label htmlFor="invoiceNumber" className="font-medium mb-1">Invoice Number</label>
+          <input
+            type="text"
+            name="invoiceNumber"
+            id="invoiceNumber"
+            value={client.invoiceNumber}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            placeholder="INV-00001"
+            maxLength={10}
+            className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+
+        <ConfirmModal
+          isOpen={!!error}
+          title="Validation Error"
+          message={
+            <div className="w-full max-w-sm [white-space:pre-wrap] [overflow-wrap:break-word]">
+              {error}
+            </div>
+          }
+          onConfirm={() => setError('')}
+          confirmText="OK"
+          cancelText=""
         />
-       <input
-        type="text"
-        name="invoiceNumber"
-        value={client.invoiceNumber}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        placeholder="INV-000001"
-        maxLength={10}
-        className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-      />
-      <ConfirmModal
-        isOpen={!!error}
-        title="Validation Error"
-        message={<div className="w-full max-w-sm [white-space:pre-wrap] [overflow-wrap:break-word]">{error}</div>}
-        onConfirm={() => setError('')}
-        confirmText="OK"
-        cancelText=""
-      />
-        <input
-          type="text"
-          name="address"
-          value={client.address}
-          onChange={handleChange}
-          placeholder="Client Address"
-          className="border p-2 rounded print:print-flat focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-        />
-        <input
-          type="date"
-          name="date"
-          value={client.date}
-          onChange={handleChange}
-          className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-        />
+
+        <div className="flex flex-col">
+          <label htmlFor="address" className="font-medium mb-1">Client Address</label>
+          <input
+            type="text"
+            name="address"
+            id="address"
+            maxLength={30}
+            value={client.address}
+            onChange={handleChange}
+            placeholder="Client Address"
+            className="border p-2 rounded print:print-flat focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+
+        <div className="flex flex-col">
+          <label htmlFor="date" className="font-medium mb-1">Invoice Date</label>
+          <input
+            type="date"
+            name="date"
+            id="date"
+            value={client.date}
+            onChange={handleChange}
+            className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
       </div>
-       <button
+
+      <button
         type="button"
         data-html2canvas-ignore="true"
         onClick={handleReset}
