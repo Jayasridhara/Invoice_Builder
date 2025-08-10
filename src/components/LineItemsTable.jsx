@@ -56,7 +56,7 @@ const LineItemsTable = ({ items, setItems }) => {
         {items.map((item, i) => (
           <div key={i} className="flex flex-col sm:grid sm:grid-cols-6 gap-4 border p-4 rounded-lg items-center">
             {/* Description Input - REMOVED flex classes */}
-             <div className="sm:col-span-2 flex flex-col justify-center">
+             <div className="sm:col-span-2 flex flex-col md:flex-row  justify-center">
               <label className="text-sm font-medium mb-1 sm:hidden">Description</label>
             <input
               type="text"
@@ -64,7 +64,7 @@ const LineItemsTable = ({ items, setItems }) => {
               value={item.description}
               onChange={e => handleItemChange(i, "description", e.target.value)}
               placeholder="Description"
-              className=" border p-2 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 "
+              className=" items-center border p-2 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 "
             />
             </div>
 
