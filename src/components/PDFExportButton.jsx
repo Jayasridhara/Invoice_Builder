@@ -21,7 +21,17 @@ const PDFExportButton = ({ invoiceRef }) => {
     if (!items || items.length === 0) {
       missing.push("At least one item in the table");
     }
-    
+    else {
+      const emptyDescriptions = items
+        .map((item, index) => (!item.description ? index + 1 : null))
+        .filter((index) => index !== null);
+
+      if (emptyDescriptions.length > 0) {
+        missing.push(
+          `Description missing for item(s): ${emptyDescriptions.join(", ")}`
+        );
+      }
+    }
     if (missing.length > 0) {
       setMissingFields(missing);
       setShowPopup(true);
